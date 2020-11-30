@@ -3,6 +3,8 @@
 #include "led.h"
 #include "buzzer.h"
 #include "switches.h" 
+#include "lcdutils.h"
+#include "lcddraw.h"
 
 static short two = 1;
 static char dimState = 0;
@@ -121,6 +123,7 @@ void state_advance(){
   char changed = 0;
   switch(switch_state_changed){
    case 1:
+     drawString8x12(20, 10,"0", COLOR_WHITE, COLOR_BLACK);
     changed = toggle_red();
     break;
   case 2:
