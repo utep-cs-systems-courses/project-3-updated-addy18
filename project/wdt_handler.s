@@ -1,7 +1,7 @@
 	.file	 "_wdt_handler.c"
 .text
 	.balign 2
-	.gloabl WDT
+	.global WDT
 	.section	__interrupt_vector_11,"ax",@progbits
 	.word	WDT
 	.text
