@@ -1,18 +1,19 @@
 OBJECTS =
+
 CPU 		= msp430g2553
-CFLAGS 		= -mmcu=${CPU} -I../h
-LDFLAGS		= -L/opt/ti/msp430_gcc/include
+CFLAGS 		= -mmcu=${CPU} -Os -I../h
+LDFLAGS		= -L../lib -L/opt/ti/msp430_gcc/include/
 
 CC 		= msp430-elf-gcc
-AS		= msp430-elf-as
+AS		= msp430-elf-gcc -mmcu=${CPU} -c
 
 all: main.elf
 
-main.elf: ${OBJECTS} interrupt_handler.o led.o switches.o main.o buzzer.o State_Machine.o lib/libTimer.a
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
+main.elf: ${OBJECTS} interrupt_handler.o led.o switches.o main.o buzzer.o State_Machine.o wdt_handler.o
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lp2sw
 
 load: main.elf
-	msp430loader.sh main.elf
+	msp430loader.sh $^
 
 clean:
 	rm -f *.o *.elf
