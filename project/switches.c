@@ -17,15 +17,13 @@ static char switch_update_interrupt_sense(){
 }
 
 void switch_init(){ //set up switch
-  P2REN |= SWITCHES;
-  P2IE |= SWITCHES;
-  P2OUT |= SWITCHES;
-  P2DIR &= ~SWITCHES;
+  P2REN |= SWITCHES; // enables resistors for switches
+  P2IE |= SWITCHES; // enable interrupts from switches
+  P2OUT |= SWITCHES; // pull-ups for swicthes
+  P2DIR &= ~SWITCHES; // set switches buts for input 
   
   switch_update_interrupt_sense();
-  //  switch_interrupt_handler();
   led_update();
-  
 }
 
 void switch_interrupt_handler(){
@@ -36,33 +34,26 @@ void switch_interrupt_handler(){
   s3 = (p2val & SW3) ? 0 : 1;
   s4 = (p2val & SW4) ? 0 : 1;
 
-  if(s1){
+  if(s1){ // switch 1 pressed
     switch_state_down = s1;
     switch_state_changed = 1;
     led_update();
     song1();
-  }else if(s2){
+  }else if(s2){ // switch 2 pressed
     switch_state_down = s2;
     switch_state_changed = 2;
     led_update();
     song2();
-  }else if(s3){
+  }else if(s3){ // switch 3 pressed
     switch_state_down = s3;
     switch_state_changed = 3;
     song3();
-  }else if(s4){
+  }else if(s4){ // switch 4 pressed 
     switch_state_down = s4;
     switch_state_changed = 4;
     //led_update();
     state4();
     song4();
-    //buzzer_set_period(0)
-    /*}else{
-    switch_state_down = 0;
-    switch_state_changed = 1;
-    led_update();
-    //dim_on = 0;
-    */
   }
   switch_state_changed = 1;
   led_update();
