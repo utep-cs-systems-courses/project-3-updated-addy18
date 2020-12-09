@@ -1,4 +1,3 @@
-OBJECTS =
 
 CPU 		= msp430g2553
 CFLAGS 		= -mmcu=${CPU} -Os -I../h
@@ -9,8 +8,8 @@ AS		= msp430-elf-gcc -mmcu=${CPU} -c
 
 all: main.elf
 
-main.elf: ${OBJECTS} interrupt_handler.o led.o switches.o main.o buzzer.o State_Machine.o wdt_handler.o
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lp2sw
+main.elf: ${COMMON_OBJECTS} main.o wdt_handler.o led.o switches.o buzzer.o interrupt_handler.o State_Machine.o state_advance.s buzzer_advance.s 
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd
 
 load: main.elf
 	msp430loader.sh $^
