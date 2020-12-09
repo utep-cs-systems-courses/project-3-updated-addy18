@@ -2,20 +2,6 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
-//notes
-#define A3 2273
-#define B3 2025
-#define G3 2551
-#define E3 3033
-#define C3 3846
-#define C4 1911
-#define D4 1703
-#define E4 1517
-#define F4 1432
-#define G4 1276
-#define A4 1136
-#define B4 1012
-
 void buzzer_init(){
   /*
     Direct timer A output "TA0.1" to P2.6.
@@ -35,80 +21,3 @@ void buzzer_set_period(short cycles){ // buzzer clock = 2MHz. (period of 1k resu
   CCR0 = cycles;
   CCR1 = cycles >>1; // one half cycle
 }
-/*
-void song1(){
-  int i = 0;
-  int song[] = {A3, G3, F4, E3};
-
-  while(i < sizeof(song)){
-    int first = 0;
-    while (first < 20){
-      int second = 0;
-      while(second < 30000){
-	second++;
-      }
-      first++;
-    }
-    buzzer_set_period(song[i]);
-    state_advance();
-    i++;
-  }
-}
-
-void song2(){
-  int i = 0;
-  int song[] = {B4, A4, F4};
-  
-  while(i < sizeof(song)){
-    int first = 0;
-    while(first < 20){
-      int second = 0;
-      while(second < 30000){
-	second++;
-      }
-      first++;
-    }
-    buzzer_set_period(song[i]);
-    state_advance();
-    i++;
-  }
-}
-
-void song3(){
-  int i = 0;
-  int song[] = {G4, D4, C3, B3};
-  
-  while(i < sizeof(song)){
-    int first = 0;
-    while(first < 20){
-      int second = 0;
-      while(second < 30000){
-	second++;
-      }
-      first++;
-    }
-    buzzer_set_period(song[i]);
-    state_advance();
-    i++;
-  }
-}
-
-void song4(){
-  int i = 0;
-  int song[] = {E4, C3, D4, A4, G3};
-
-  while(i < sizeof(song)){
-    int first = 0;
-    while(first < 20){
-      int second = 0;
-      while(second < 30000){
-	second++;
-      }
-      first++;
-    }
-    buzzer_set_period(song[i]);
-    state_advance();
-    i++;
-  }
-}
-*/
