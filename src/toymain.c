@@ -34,32 +34,34 @@ void wdt_c_handler(){
   static int count = 0;
   static int count2 = 0;
   static int count3 = 0;
-  
-  if(button_state == 4){
-    if(++count == 250 && ++count3 == 250){
-      buzzer_advance();
+ 
+   if(button_state == 1){
+    if((++count % 5) == 0) buzzer_advance();
+    if(count == 250){
       state_advance();
       count = 0;
-      count3 = 0;
-      redrawScreen = 1;
     }
-  }
+   }
   if(++count2 == 125){
     state_advance();
     count2 = 0;
+    count++;
     redrawScreen = 1;
   }
-  if(++count3 == 250){
-    count3 = 0;
-    fontFgColor = (fontFgColor == COLOR_PURPLE) ? COLOR_BLACK : COLOR_PURPLE;
-    redrawScreen = 1;
+  if(button_state == 4){
+    if(++count3 == 250){
+      count3 = 0;
+      fontFgColor = (fontFgColor == COLOR_PURPLE) ? COLOR_BLACK : COLOR_PURPLE;
+      redrawScreen = 1;
+    }
   }
 }
 
 void main(){
   led_init();
   P1DIR |= LED_GREEN;
-  P1OUT |= LED_GREEN;
+  P1OUT |= LED_GREEN; //red light will be on when msp is turned on
+  
   configureClocks();
   lcd_init();
   switch_init();
@@ -69,9 +71,10 @@ void main(){
 
   clearScreen(COLOR_TURQUOISE);
 
-  while(1){
+  while(1){ // on forever
     if(redrawScreen){
       switch(button_state){
+	// displays a blank turquoise screen with my name at the buttom 
       case 0: drawString5x7(screenWidth/2, screenHeight-15, "Adelyn", COLOR_BLUE, COLOR_TURQUOISE); break;
       case 1:
 	//	clearScreen(COLOR_BLUE);
