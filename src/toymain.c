@@ -37,7 +37,7 @@ void wdt_c_handler(){
  
    if(button_state == 1){
     if((++count % 5) == 0) buzzer_advance();
-    if(count == 250){
+    if(count == 125){
       state_advance();
       count = 0;
     }
@@ -113,4 +113,8 @@ void main(){
       }
     }
   }
+    P1OUT |= LED_GREEN;
+    or_sr(0x10);
+    P1OUT |= LED_GREEN;
+
 }
