@@ -2,6 +2,8 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
+static int count = 0;
+
 void buzzer_init(){
   timerAUpmode();
   P2SEL2 &= ~(BIT6 | BIT7);
@@ -14,3 +16,4 @@ void buzzer_set_period(short cycles){
   CCR0 = cycles;
   CCR1 = cycles >> 1;
 }
+
