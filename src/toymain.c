@@ -112,9 +112,8 @@ void main(){
 		drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_TURQUOISE); prev = 4; break;
       }
     }
-  }
     P1OUT |= LED_GREEN;
     or_sr(0x10);
     P1OUT |= LED_GREEN;
-
+  }
 }
