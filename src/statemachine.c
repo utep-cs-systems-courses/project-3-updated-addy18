@@ -103,7 +103,8 @@ char state3(){
 
 // turns off leds 
 char state4(){
-  red_on = 0;
+  green_on = 0;
+  buzzer_set_period(0);
   led_changed = 1;
   led_update();
   return 1;

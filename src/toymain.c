@@ -37,12 +37,12 @@ void wdt_c_handler(){
  
    if(button_state == 1){
     if((++count % 5) == 0) buzzer_advance();
-    if(count == 125){
+    if(count == 250){
       state_advance();
       count = 0;
     }
    }
-  if(++count2 == 125){
+  if(++count2 == 200){
     state_advance();
     count2 = 0;
     count++;
@@ -59,7 +59,7 @@ void wdt_c_handler(){
 
 void main(){
   led_init();
-  P1DIR |= LED_GREEN;
+  //P1DIR |= LED_GREEN;
   P1OUT |= LED_GREEN; //red light will be on when msp is turned on
   
   configureClocks();
@@ -67,7 +67,7 @@ void main(){
   switch_init();
   buzzer_init();
   enableWDTInterrupts();
-  or_sr(0x8);
+  or_sr(0x08);
 
   clearScreen(COLOR_TURQUOISE);
 
@@ -77,7 +77,6 @@ void main(){
 	// displays a blank turquoise screen with my name at the buttom 
       case 0: drawString5x7(screenWidth/2, screenHeight-15, "Adelyn", COLOR_BLUE, COLOR_TURQUOISE); break;
       case 1:
-	//	clearScreen(COLOR_BLUE);
 	if(prev == 2){
 	  blankScreen(25, 30, 15);
 	}else if(prev == 3){
@@ -85,7 +84,6 @@ void main(){
 	}
 	lcdState(COLOR_BLACK, 50, 50, 15); prev = 1; break;
       case 2:
-	//	clearScreen(COLOR_TURQUOISE);
 	if(prev == 1){
 	  blankScreen(50,50,15);
 	}else if(prev == 3){
@@ -93,7 +91,6 @@ void main(){
 	}
 	lcdState(COLOR_RED, 25, 30, 15); prev = 2; break;
       case 3:
-	//	clearScreen(COLOR_PURPLE);
 	if(prev == 1){
 	  blankScreen(50,50,15);
 	}else if(prev == 2){
@@ -108,13 +105,11 @@ void main(){
 	}else if(prev == 3){
 	  blankScreen(45, 20, 20);
 	}
-	//	 clearScreen(COLOR_BLACK);
-		drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_TURQUOISE); prev = 4; break;
+	drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_TURQUOISE); prev = 4; break;
       }
     }
-  }
-    P1OUT |= LED_GREEN;
+    P1OUT &= ~LED_GREEN;
     or_sr(0x10);
     P1OUT |= LED_GREEN;
-
+  }
 }
