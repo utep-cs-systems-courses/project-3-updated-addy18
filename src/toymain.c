@@ -61,14 +61,14 @@ void main(){
   led_init();
   P1DIR |= LED_GREEN;
   P1OUT |= LED_GREEN; //red light will be on when msp is turned on
-  
   configureClocks();
+
   lcd_init();
   switch_init();
   buzzer_init();
   
   enableWDTInterrupts(); //enable periodic interrupt
-  or_sr(0x8);      // GIE (enable interrupts)
+  or_sr(0x08);      // GIE (enable interrupts)
 
   clearScreen(COLOR_BLUE);
 
