@@ -59,23 +59,24 @@ void wdt_c_handler(){
 
 void main(){
   led_init();
-  //P1DIR |= LED_GREEN;
+  P1DIR |= LED_GREEN;
   P1OUT |= LED_GREEN; //red light will be on when msp is turned on
   
   configureClocks();
   lcd_init();
   switch_init();
   buzzer_init();
-  enableWDTInterrupts();
-  or_sr(0x08);
+  
+  enableWDTInterrupts(); //enable periodic interrupt
+  or_sr(0x8);      // GIE (enable interrupts)
 
-  clearScreen(COLOR_TURQUOISE);
+  clearScreen(COLOR_BLUE);
 
   while(1){ // on forever
     if(redrawScreen){
       switch(button_state){
 	// displays a blank turquoise screen with my name at the buttom 
-      case 0: drawString5x7(screenWidth/2, screenHeight-15, "Adelyn", COLOR_BLUE, COLOR_TURQUOISE); break;
+      case 0: drawString5x7(screenWidth/2, screenHeight-15, "Adelyn", COLOR_BLACK, COLOR_BLUE); break;
       case 1:
 	if(prev == 2){
 	  blankScreen(25, 30, 15);
@@ -105,11 +106,11 @@ void main(){
 	}else if(prev == 3){
 	  blankScreen(45, 20, 20);
 	}
-	drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_TURQUOISE); prev = 4; break;
+	drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_BLUE); prev = 4; break;
       }
     }
-    P1OUT &= ~LED_GREEN;
-    or_sr(0x10);
-    P1OUT |= LED_GREEN;
+    P1OUT &= ~LED_GREEN; // green led off
+    or_sr(0x10); // cpu off
+    P1OUT |= LED_GREEN; // green led on 
   }
 }

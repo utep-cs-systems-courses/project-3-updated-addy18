@@ -34,9 +34,9 @@ void blankScreen(int width, int height, int size){
   u_char centerWidth = screenWidth/2 + 1;
   u_char centerHeight = screenWidth/2 + 1;
 
-  draw_diamond(centerWidth-width, centerHeight-height, size, COLOR_TURQUOISE);
-  draw_diamond(centerWidth+width, centerHeight+height, size, COLOR_TURQUOISE);
-  draw_diamond(centerWidth, centerHeight, size, COLOR_TURQUOISE);
+  draw_diamond(centerWidth-width, centerHeight-height, size, COLOR_BLUE);
+  draw_diamond(centerWidth+width, centerHeight+height, size, COLOR_BLUE);
+  draw_diamond(centerWidth, centerHeight, size, COLOR_BLUE);
 }
 
 
@@ -103,7 +103,7 @@ char state3(){
 
 // turns off leds 
 char state4(){
-  green_on = 0;
+  red_on = 0;
   buzzer_set_period(0);
   led_changed = 1;
   led_update();

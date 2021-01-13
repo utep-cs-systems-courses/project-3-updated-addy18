@@ -19,7 +19,7 @@ state_advance:
 	sub #2, r1		
 	mov #0 , 0(r1)		; changed = 0
 	cmp.b #5, &button_state
-	jhs exit		;jump if higher or same
+	jhs exit		;jump if higher or same, carry flag 
 	mov.b &button_state, r12
 	add.b r12, r12
 	mov jt(r12), r0
