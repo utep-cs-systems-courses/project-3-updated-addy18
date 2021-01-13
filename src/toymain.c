@@ -109,8 +109,8 @@ void main(){
 	drawString5x7(10,10,"Merry Christmas", fontFgColor, COLOR_BLUE); prev = 4; break;
       }
     }
-    P1OUT &= ~LED_GREEN; // green led off
-    or_sr(0x10); // cpu off
-    P1OUT |= LED_GREEN; // green led on 
+    P1OUT &= ~LED_GREEN; /* green led off*/
+    or_sr(0x10); /* cpu off*/
+    P1OUT |= LED_GREEN; /*green led on*/ 
   }
 }
